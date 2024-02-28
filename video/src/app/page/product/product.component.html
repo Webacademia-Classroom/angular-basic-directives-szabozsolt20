@@ -1,0 +1,44 @@
+<div class="row">
+  <div class="col-6 col-md-2 text-center">
+    <div><strong>Sum</strong></div>
+    <div>
+      <strong class="sumprice-container">
+        <!-- Show allPrice. -->
+        ${{ allPrice() }}
+      </strong>
+    </div>
+  </div>
+</div>
+
+<div class="row my-3 mx-2">
+  @for (product of products(); track $index) {
+    <div class="col-12 col-md-6 col-lg-3">
+      <div class="card mb-2">
+        <div class="card-body">
+          <h2 class="card-title">{{ product.name }}</h2>
+          <h6 class="card-subtitle mb-2 text-body-secondary">details</h6>
+          @for (col of displayedColumns; track $index) {
+            <p class="card-text">
+              <strong>{{ col }}: </strong>{{ product[col] }}
+            </p>
+          }
+
+          @if (product.active) {
+            <div class="btn-group">
+              <button
+                [routerLink]="['product', 'edit', product.id]"
+                class="card-link btn btn-info">
+                  Show
+              </button>
+              <button (click)="onRemove(product)" class="card-link btn btn-danger">
+                Remove
+              </button>
+            </div>
+          } @else {
+            <h2>Status <span class="badge bg-secondary">inactive</span></h2>
+          }
+        </div>
+      </div>
+    </div>
+  }
+</div>
